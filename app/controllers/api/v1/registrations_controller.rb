@@ -1,5 +1,6 @@
 class Api::V1::RegistrationsController < ApiController
   include CreateSession
+  before_action :authenticate_user, only: :destroy
 
   def create
     @user = User.new(registration_params)

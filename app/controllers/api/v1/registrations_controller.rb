@@ -5,8 +5,7 @@ class Api::V1::RegistrationsController < ApiController
     @user = User.new(registration_params)
 
     if @user.save
-      exp = 1.day.from_now
-      @token = JsonWebToken.encode({ user_id: @user.id }, exp)
+      @token = jwt_session_create(@user.id)
 
       @token ? success_user_created : error_token_create
     else
@@ -23,7 +22,7 @@ class Api::V1::RegistrationsController < ApiController
 
   def success_user_created
     response.headers['Authorization'] = "Bearer #{@token}"
-    render status: :created, json: { Authorization: @token,
+    render status: :created, json: { Authorization: "Bearer #{@token}",
                                      user: @user }
   end
 

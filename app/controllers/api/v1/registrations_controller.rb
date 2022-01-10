@@ -1,6 +1,6 @@
 class Api::V1::RegistrationsController < ApiController
   include CreateSession
-  before_action :authenticate_user, only: :destroy
+  before_action :authenticate_user, only: %i[destroy update]
 
   def create
     @user = User.new(registration_params)
@@ -11,6 +11,16 @@ class Api::V1::RegistrationsController < ApiController
       @token ? success_user_created : error_token_create
     else
       error_user_save
+    end
+  end
+
+  def update
+    if current_user.update(registration_params)
+      render status: :ok, json: { message: 'Update successful',
+                                  user: current_user }
+    else
+      # Unpermitted paramters are ignored and won't lead to an error
+      render status: :unprocessable_entity, json: { errors: current_user.errors.full_message }
     end
   end
 
@@ -38,10 +48,10 @@ class Api::V1::RegistrationsController < ApiController
   private
 
   def registration_params
-    params.permit(:username,
-                  :password,
-                  :email,
-                  :first_name,
-                  :last_name)
+    params.require(:registration).permit(:username,
+                                         :password,
+                                         :email,
+                                         :first_name,
+                                         :last_name)
   end
 end

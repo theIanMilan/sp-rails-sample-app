@@ -8,7 +8,7 @@ module AuthenticateRequest
 
   def current_user
     @current_user = nil
-    if decoded_token
+    if decoded_token.present?
       data = decoded_token
       user = User.find(data[:user_id])
       session = Session.search(data[:user_id], data[:token])
@@ -27,7 +27,7 @@ module AuthenticateRequest
       begin
         @decoded_token ||= JsonWebToken.decode(header)
       rescue StandardError => e
-        render json: { error: e.message }, status: :unauthorized
+        @decoded_token = nil
       end
     end
   end

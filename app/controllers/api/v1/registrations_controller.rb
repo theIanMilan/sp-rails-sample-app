@@ -1,5 +1,6 @@
 class Api::V1::RegistrationsController < ApiController
   include CreateSession
+  include CommonResponse
   before_action :authenticate_user, only: %i[destroy update]
 
   def create
@@ -30,12 +31,6 @@ class Api::V1::RegistrationsController < ApiController
   end
 
   protected
-
-  def success_user_created
-    response.headers['Authorization'] = "Bearer #{@token}"
-    render status: :created, json: { Authorization: "Bearer #{@token}",
-                                     user: @user }
-  end
 
   def error_token_create
     render status: :unprocessable_entity, json: { errors: 'Error in token creation' }

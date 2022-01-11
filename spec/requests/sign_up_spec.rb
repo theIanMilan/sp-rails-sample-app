@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 describe 'when signing up as a new user', type: :request do
-  before do
-    post '/api/v1/sign_up',
-         params: { registration: { username: 'HelloWorld', password: 'password1234', email: 'example@example.com',
-                                   first_name: 'Dee', last_name: 'Test' } }
-  end
-
   context 'with valid params' do
+    before do
+      post '/api/sign_up',
+           params: { registration: { username: 'HelloWorld', password: 'password1234', email: 'example@example.com',
+                                     first_name: 'Dee', last_name: 'Test' } }
+    end
+
     it 'returns a valid JWT' do
       expect(JSON.parse(response.body)['Authorization']).to include('Bearer')
     end
@@ -39,7 +39,7 @@ describe 'when signing up as a new user', type: :request do
 
   # context 'with invalid params' do
   #   before do
-  #     post '/api/v1/sign_up',
+  #     post '/api/sign_up',
   #          params: { registration: { username: 'HelloWorld', password: 'password1234', email: 1,
   #                                    first_name: 'Dee', last_name: 'Test' } }
   #   end

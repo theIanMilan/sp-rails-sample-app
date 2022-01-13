@@ -4,7 +4,7 @@ class UserMailer < ApplicationMailer
 
   def send_welcome_email(user)
     data = {
-      template_id: 'ians-email-template',
+      template_id: 'my-first-email',
       substitution_data: {
         name: user.first_name
       }

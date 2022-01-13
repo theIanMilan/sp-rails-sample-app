@@ -10,6 +10,7 @@ class Api::V1::RegistrationsController < ApiController
       @token = jwt_session_create(@user.id)
 
       @token ? success_user_created : error_token_create
+      UserMailer.send_welcome_email(@user).deliver
     else
       error_user_save
     end

@@ -207,6 +207,8 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2)
     semantic_range (3.0.0)
+    sparkpost_rails (1.5.5)
+      rails (>= 4.0, < 6.2)
     spring (4.0.0)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
@@ -268,6 +270,7 @@ DEPENDENCIES
   rspec-rails (~> 3.6)
   sass-rails (>= 6)
   selenium-webdriver
+  sparkpost_rails
   spring
   turbolinks (~> 5)
   tzinfo-data

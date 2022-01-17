@@ -9,10 +9,10 @@ class Api::V1::RegistrationsController < ApiController
     if @user.save
       @token = jwt_session_create(@user.id)
 
-      @token ? success_user_created : error_token_create
+      @token ? success_message('User successfully created') : error_message('Error in token creation')
       UserMailer.send_welcome_email(@user).deliver
     else
-      error_user_save
+      object_error(@user)
     end
   end
 
@@ -29,16 +29,6 @@ class Api::V1::RegistrationsController < ApiController
   def destroy
     current_user.destroy
     render status: :no_content, json: {}
-  end
-
-  protected
-
-  def error_token_create
-    render status: :unprocessable_entity, json: { errors: 'Error in token creation' }
-  end
-
-  def error_user_save
-    render status: :unprocessable_entity, json: { errors: @user.errors.full_messages }
   end
 
   private

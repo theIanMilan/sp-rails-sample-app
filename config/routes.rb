@@ -7,6 +7,8 @@ Rails.application.routes.draw do
       post 'sign_in', to: 'sessions#create'
       get 'validate_token', to: 'sessions#validate_token'
       delete 'sign_out', to: 'sessions#destroy'
+
+      resources :users, only: [:update]
     end
   end
 end

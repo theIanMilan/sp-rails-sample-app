@@ -9,27 +9,27 @@ describe 'when signing up as a new user', type: :request do
     end
 
     it 'returns a valid JWT' do
-      expect(JSON.parse(response.body)['Authorization']).to include('Bearer')
+      expect(json_response['Authorization']).to include('Bearer')
     end
 
     it "returns the user's username" do
-      expect(JSON.parse(response.body)['user']['username']).to eq(controller.params[:registration][:username])
+      expect(json_response['user']['username']).to eq(controller.params[:registration][:username])
     end
 
     it "returns the user's bcrypt's encrypted password" do
-      expect(JSON.parse(response.body)['user']['password_digest']).to_not eq(nil)
+      expect(json_response['user']['password_digest']).to_not eq(nil)
     end
 
     it "returns the user's email" do
-      expect(JSON.parse(response.body)['user']['email']).to eq(controller.params[:registration][:email])
+      expect(json_response['user']['email']).to eq(controller.params[:registration][:email])
     end
 
     it "returns the user's first_name" do
-      expect(JSON.parse(response.body)['user']['first_name']).to eq(controller.params[:registration][:first_name])
+      expect(json_response['user']['first_name']).to eq(controller.params[:registration][:first_name])
     end
 
     it "returns the user's last_name" do
-      expect(JSON.parse(response.body)['user']['last_name']).to eq(controller.params[:registration][:last_name])
+      expect(json_response['user']['last_name']).to eq(controller.params[:registration][:last_name])
     end
 
     it 'returns a created status' do
@@ -45,7 +45,7 @@ describe 'when signing up as a new user', type: :request do
   #   end
 
   #   it 'returns a JSON with errors as a key' do
-  #     expect(JSON.parse(response.body)['errors']).to_not eq(nil)
+  #     expect(json_response['errors']).to_not eq(nil)
   #   end
 
   #   it 'returns a status of unprocessable_entity' do

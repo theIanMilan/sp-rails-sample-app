@@ -211,6 +211,8 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2)
     semantic_range (3.0.0)
+    shoulda-matchers (5.0.0)
+      activesupport (>= 5.2.0)
     sparkpost_rails (1.5.5)
       rails (>= 4.0, < 6.2)
     spring (4.0.0)
@@ -275,6 +277,7 @@ DEPENDENCIES
   rspec-rails (~> 3.6)
   sass-rails (>= 6)
   selenium-webdriver
+  shoulda-matchers
   sparkpost_rails
   spring
   turbolinks (~> 5)
